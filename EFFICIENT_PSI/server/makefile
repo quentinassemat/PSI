@@ -1,10 +1,21 @@
-OBJS = \
-	tcp.o \
+LINK_TARGET = \
+	server \
 
-all : $(OBJS)
+OBJS = \
+	server.o \
+	../../TCP/tcp.o \
+
+LIB = \
+
+REBUILDABLES = $(OBJS) $(LINK_TARGET)
+
+all : $(LINK_TARGET)
 
 clean:
-	rm -f $(OBJS)
+	rm -f $(REBUILDABLES)
+
+$(LINK_TARGET) : $(OBJS)
+	cc -g $(LIB) -o $@ $^ 
 
 # Here is a Pattern Rule, often used for compile-line.
 # It says how to create a file with a .o suffix, given a file with a .c suffix.
@@ -16,4 +27,4 @@ clean:
 	cc -g  -Wall -o $@ -c $<
 
 #dependecy rule à mettre (.o : .h)
-tcp.o : tcp.h tcp.c
+server.o : server.h server.c ../../TCP/tcp.o

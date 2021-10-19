@@ -88,7 +88,3 @@ int fd_read(int fd, void * file, int size) {
     printf("message reçu: %p\n",file);
     return bytes_read;
 }
-
-int main(int argc, char* argv[]) {
-    return 0;
-}
