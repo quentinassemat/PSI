@@ -1,5 +1,5 @@
 #include "profil.h"
-
+//test
 void profil_init(profil_t *pro)
 {
     srand(time(NULL));
