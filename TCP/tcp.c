@@ -2,7 +2,7 @@
 
 
 int socket_connect_server(int port_number){
-    //inititalisation of a TCP socket and sockaddr struct
+    //inititalisation of a TCP socket and sockaddr struct test
     printf("socket_connect_server:\n");
     unsigned int from_len = sizeof(struct sockaddr_in);
     int sock_fd = 0;
