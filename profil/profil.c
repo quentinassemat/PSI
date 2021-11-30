@@ -1,5 +1,5 @@
 #include "profil.h"
-//test
+
 void profil_init(profil_t *pro)
 {
     srand(time(NULL));
@@ -23,7 +23,6 @@ void profil_append(profil_t *pro, hash_pair * hp)
     hash_put(pro->tab, hp->k, hp->v);
 }
 
-// pas finis
 int profil_from_file(profil_t *pro, const char *file_name)
 {
     profil_reset(pro);
@@ -71,6 +70,28 @@ int profil_into_file(profil_t *pro, const char *file_name) {
     }
     fclose(file);
     return 1;
+}
+
+int profil_hashed(profil_t * in, profil_t * out) {
+    profil_init(out);
+    for (size_t i = 0; i<in->tab->size; i++) {
+        if (hash_is_defined(in->tab, i)) {
+            buffer_t buf_to_hash, buf_hashed;
+            buffer_init(&buf_to_hash, 8);
+            buffer_init(&buf_hashed, 8);
+            for (int i = 0; i<8; i++) {
+                uchar c = in->tab->table[i].k >> 4 * i;
+                buffer_append_uchar(&buf_to_hash, c);
+            }
+            buffer_hash(&buf_hashed, 8, &buf_to_hash);
+            mpz_t export;
+            mpz_init(export);
+            mpz_import(export, buf_hashed.length, 1, 1, 1, 0, buf_hashed.tab);
+            hash_pair hp = {mpz_get_ui(export), in->tab->table[i].v};
+            profil_append(out, &hp);
+        }
+    }
+    return 0;
 }
 
 // juste le remplissage de la table de hachage

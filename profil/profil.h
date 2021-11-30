@@ -1,3 +1,6 @@
+#ifndef PROFIL_H
+#define PROFIL_H
+
 /*! \file profil.h
  */
 
@@ -6,8 +9,13 @@
 #include <string.h>
 #include <assert.h>
 #include <limits.h>
-#include "hashtable.h"
 #include <time.h>
+
+#include "hashtable.h"
+#include "sha3.h"
+#include "buffer.h"
+#include "gmp.h"
+
 
 /********** profils **********/
 
@@ -32,7 +40,9 @@ void profil_append(profil_t *pro, hash_pair * hp);
 int profil_from_file(profil_t *buf, const char *file_name);
 void profil_random(profil_t *out, unsigned long nb_elements);
 int profil_into_file(profil_t *pro, const char *file_name);
+int profil_hashed(profil_t * in, profil_t * out);
 
 void profil_print(FILE *ofile, profil_t *pro);
 
 
+#endif

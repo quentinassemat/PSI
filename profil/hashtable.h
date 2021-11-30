@@ -1,3 +1,6 @@
+#ifndef HASHTABLE_H
+#define HASHTABLE_H
+
 /*! \file hashtable.h
  * \author Francois Morain morain@lix.polytechnique.fr
  * \date Last modification October 12, 2017                     
@@ -12,6 +15,7 @@
 
 typedef unsigned long hash_key, hash_value;
 
+// k représente un élément et v servira au "data transfer"
 typedef struct{
     hash_key k;
     hash_value v;
@@ -30,3 +34,5 @@ extern hash_table hash_init();
 extern int hash_put(hash_table H, hash_key k, hash_value v);
 extern int hash_get(hash_pair *kv, hash_table H, hash_key k);
 extern void hash_clear(hash_table H);
+
+#endif

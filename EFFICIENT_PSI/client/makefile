@@ -1,3 +1,6 @@
+LIB = WITH_STDLIB
+FOM = NO_USE_COMPLETE_FORMULAS
+
 LINK_TARGET = \
 	client \
 
@@ -6,13 +9,9 @@ OBJS = \
 	../../TCP/tcp.o \
 	../../profil/profil.o \
 	../../profil/hashtable.o \
-	# ../../Tools/buffer.o \
-	# ../../Tools/random.o \
-	# ../../Tools/hashtable.o \
-	# ../../Tools/base64.o \
-	# ../../Tools/bits.o \
+	test.o \
 
-LIB = \
+LIB = -I /usr/local/include/pbc  -L /usr/local/lib -Wl,-rpath /usr/local/lib -l pbc -l gmp
 
 REBUILDABLES = $(OBJS) $(LINK_TARGET)
 
@@ -22,9 +21,10 @@ clean:
 	rm -f $(REBUILDABLES)
 
 $(LINK_TARGET) : $(OBJS)
-	cc -g $(LIB) -o $@ $^ 
+	cc -g -o $@ $^ $(LIB)
 
 %.o : %.c
 	cc -g  -Wall -o $@ -c $<
 
-client.o : client.h client.c ../../TCP/tcp.o ../../Tools/buffer.o ../../Tools/random.o ../../Tools/hashtable.o ../../Tools/base64.o ../../Tools/bits.o
+
+client.o : client.h client.c test.o test.c test.h

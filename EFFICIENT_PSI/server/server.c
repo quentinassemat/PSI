@@ -24,6 +24,6 @@ int test_profil() {
 }
 
 int main(int argc, char* argv[]) {
-    test_profil();
+    test_tcp();
     return 0;
 }
