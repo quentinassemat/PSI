@@ -40,7 +40,8 @@ void profil_append(profil_t *pro, hash_pair * hp);
 int profil_from_file(profil_t *buf, const char *file_name);
 void profil_random(profil_t *out, unsigned long nb_elements);
 int profil_into_file(profil_t *pro, const char *file_name);
-int profil_hashed(profil_t * in, profil_t * out);
+// int profil_hashed(profil_t * in, profil_t * out);
+int profil_hashed(profil_t * in);
 
 void profil_print(FILE *ofile, profil_t *pro);
 

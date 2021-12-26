@@ -19,6 +19,8 @@
 
 #define BUF_SIZE 1500
 
+#define ELEMENT_BUF_SIZE 128
+
 
 /**
  * This function creat and connect a socket to the port given on local interface

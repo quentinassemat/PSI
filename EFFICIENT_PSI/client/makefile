@@ -9,6 +9,10 @@ OBJS = \
 	../../TCP/tcp.o \
 	../../profil/profil.o \
 	../../profil/hashtable.o \
+	../../profil/buffer.o \
+	../../profil/base64.o \
+	../../profil/random.o \
+	../../profil/sha3.o \
 	test.o \
 
 LIB = -I /usr/local/include/pbc  -L /usr/local/lib -Wl,-rpath /usr/local/lib -l pbc -l gmp

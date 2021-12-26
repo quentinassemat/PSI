@@ -1,5 +1,6 @@
 #include "tcp.h"
 
+#define DEBUG 0
 
 int socket_connect_server(int port_number){
     //inititalisation of a TCP socket and sockaddr struct
@@ -7,6 +8,13 @@ int socket_connect_server(int port_number){
     unsigned int from_len = sizeof(struct sockaddr_in);
     int sock_fd = 0;
     sock_fd = socket(AF_INET, SOCK_STREAM, 0);
+    int enable = 1;
+    if (setsockopt(sock_fd, SOL_SOCKET, SO_REUSEADDR, &enable, sizeof(int)) < 0) {
+        fprintf(stderr, "setsockopt(SO_REUSEADDR) failed");
+        return -1;
+    }
+
+
     printf("listen socket created");
 
     struct sockaddr_in listen_socket;
@@ -64,27 +72,35 @@ int socket_connect(int port_number) {
 }
 
 int fd_write(void * file, int fd, int size) {
+#if DEBUG
     printf("write...");
+#endif
     int bytes_writen = (int) write(fd, file, size);
     if (bytes_writen < 0){
         printf("FAIL error write\n");
         return -1;
     }
+#if DEBUG
     printf("OK\n");
     printf("fd_write SUCCES\n");
     printf("message envoyé: %p\n",file);
+#endif
     return bytes_writen;
 }
 
 int fd_read(int fd, void * file, int size) {
+#if DEBUG
     printf("read...");
+#endif
     int bytes_read = (int) read(fd, file, size);
     if (bytes_read < 0) {
         printf("FAIL error read\n");
         return -1;
     }
+#if DEBUG
     printf("OK\n");
     printf("fd_read SUCCES\n");
     printf("message reçu: %p\n",file);
+#endif
     return bytes_read;
 }

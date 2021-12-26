@@ -2,13 +2,9 @@
 
 // test que la connexion marche bien entre le client et le server 
 int test_tcp() {
-    int fd = socket_connect(PORT_SERVER);
-    if (fd < 0) {
-        return fd;
-    }
+    int fd = socket_connect_server(PORT_SERVER);
     char * buffer = malloc(sizeof(char) * BUF_SIZE);
-    strcpy(buffer, "Salut\0");
-    fd_write(buffer, fd, BUF_SIZE);
+    fd_read(fd, buffer, BUF_SIZE);
     free(buffer);
     close(fd);
     return 0;
@@ -68,30 +64,37 @@ int test_hash() {
     profil_clear(&pro);
     profil_random(&pro, 5);
     profil_print(stdout, &pro);
-    profil_hashed(&pro);
     profil_into_file(&pro, "../sets/random.profil");
+    profil_hashed(&pro);
+    profil_print(stdout, &pro);
+    // profil_into_file(&hash, "../sets/randomhashed.profil");
+    // profil_clear(&hash);
     profil_clear(&pro);
     return 0;
 }
 
-int test_client() {
-    int fd = socket_connect(PORT_SERVER);
-    if (fd < 0) {
-        // return fd;
-    }
-    client client_test;
-    client_init(&client_test);
-    element_printf("generator : %B\n", client_test.g);
+int test_server() {
+    int fd = socket_connect_server(PORT_SERVER);
+
+    server server_test;
+    server_init(&server_test);
+    element_printf("generator : %B\n", server_test.g);
     printf("\nData :\n");
-    profil_print(stdout, &client_test.data);
+    profil_print(stdout, &server_test.data);
 
     uchar * buffer = malloc(sizeof(uchar) * ELEMENT_BUF_SIZE);
-
-    int gen_size = element_to_bytes(buffer, client_test.g);
-    printf("gen_size : %d\n", gen_size);
-    fd_write(buffer, fd, gen_size);
+    fd_read(fd, buffer, ELEMENT_BUF_SIZE);
+    element_t test, random;
+    element_init_G1(test, server_test.pairing);
+    element_init_G1(random, server_test.pairing);
+    element_random(random);
+    element_from_bytes(test, buffer);
+    element_printf("test: %B\n", test);
     free(buffer);
 
+    printf("Comparaison de test avec generator : %d\n", element_cmp(test, server_test.g));
+    printf("Comparaison de d'un random avec gen : %d\n", element_cmp(test, random));
+    
     close(fd);
     return 0;
 }

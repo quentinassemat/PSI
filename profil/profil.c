@@ -72,23 +72,26 @@ int profil_into_file(profil_t *pro, const char *file_name) {
     return 1;
 }
 
-int profil_hashed(profil_t * in, profil_t * out) {
-    profil_init(out);
+int profil_hashed(profil_t * in) {
+    // profil_init(out);
+    buffer_t buf_to_hash, buf_hashed;
     for (size_t i = 0; i<in->tab->size; i++) {
         if (hash_is_defined(in->tab, i)) {
-            buffer_t buf_to_hash, buf_hashed;
             buffer_init(&buf_to_hash, 8);
             buffer_init(&buf_hashed, 8);
-            for (int i = 0; i<8; i++) {
-                uchar c = in->tab->table[i].k >> 4 * i;
+            for (int j = 0; j<4; j++) {
+                uchar c = in->tab->table[i].k >> (8 * j);
                 buffer_append_uchar(&buf_to_hash, c);
             }
             buffer_hash(&buf_hashed, 8, &buf_to_hash);
             mpz_t export;
             mpz_init(export);
             mpz_import(export, buf_hashed.length, 1, 1, 1, 0, buf_hashed.tab);
-            hash_pair hp = {mpz_get_ui(export), in->tab->table[i].v};
-            profil_append(out, &hp);
+            in->tab->table[i].v = mpz_get_ui(export);
+            // hash_pair hp = {mpz_get_ui(export), in->tab->table[i].v};
+            // profil_append(out, &hp);
+            buffer_clear(&buf_to_hash);
+            buffer_clear(&buf_hashed);
         }
     }
     return 0;
@@ -98,14 +101,8 @@ int profil_hashed(profil_t * in, profil_t * out) {
 void profil_random(profil_t * out, unsigned long nb_elements) {
     profil_init(out);
     for (size_t i = 0; i<nb_elements; i++) {
-        hash_pair hp = {rand() % ULONG_MAX, rand() % ULONG_MAX};
+        // hash_pair hp = {rand() % ULONG_MAX, rand() % ULONG_MAX};
+        hash_pair hp = {rand() % ULONG_MAX, 0};
         profil_append(out, &hp);
     }
 }
-
-// finir profil
-// tester création aléatoire
-// tester création depuis fichier
-// mettre en place hachage
-// mettre en place courbe elliptique
-// faire un semblant de protocole

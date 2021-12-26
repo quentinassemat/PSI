@@ -2,7 +2,8 @@ OBJS = \
 	profil.o \
 	hashtable.o \
 	buffer.o \
-	sha3.o
+	sha3.o \
+	random.o \
 	base64.o \
 
 all : $(OBJS)
