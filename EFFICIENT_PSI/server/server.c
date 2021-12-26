@@ -18,7 +18,7 @@ int server_init(server * server) {
     element_from_hash(server->g, &generator_hash, 10);
 
     // initialisation de data :
-    profil_random(&server->data, 10);
+    profil_random(&server->data, RANDOM_DATA);
 
     hash_pair test = {4, 3};
     profil_append(&server->data, &test);
@@ -168,10 +168,14 @@ int main(int argc, char* argv[]) {
             len = element_to_bytes(data, Ksj);
             sha3(data, len, data_hashed, 8);
             memcpy(&t[index], data_hashed, sizeof(unsigned long));
-            element_init_G1(y2[index], server_test.pairing);
-            element_pow_zn(y2[index], y[index], Rs);
+            printf("index : %d\n", index);
             index += 1;
         }
+    }
+
+    for (int i = 0; i<v; i++) {
+        element_init_G1(y2[i], server_test.pairing);
+        element_pow_zn(y2[i], y[i], Rs);
     }
 
     // Round 4

@@ -9,6 +9,7 @@
 #include "../../../../pbc-0.5.14/include/pbc_test.h"
 
 #define generator_hash "0123456789"
+#define RANDOM_DATA 200
 
 typedef struct server
 {

@@ -13,6 +13,7 @@
 #include <string.h>
 
 #define generator_hash "0123456789"
+#define RANDOM_DATA 100
 
 typedef struct client
 {

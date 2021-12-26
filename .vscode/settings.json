@@ -1,6 +1,7 @@
 {
     "files.associations": {
-        "profil.h": "c"
+        "profil.h": "c",
+        "server.h": "c"
     },
     "C_Cpp.errorSquiggles": "Disabled"
 }

@@ -19,7 +19,7 @@ int client_init(client * client) {
     element_from_hash(client->g, &generator_hash, 10);
 
     // initialisation de data :
-    profil_random(&client->data, 10);
+    profil_random(&client->data, RANDOM_DATA);
 
     hash_pair test = {4, 3};
     profil_append(&client->data, &test);
@@ -226,6 +226,7 @@ int main(int argc, char* argv[]) {
     for (int i = 0; i<client_test.data.tab->nb_elts; i++) {
         for (int j = 0; j < w; j++) {
             if (t[j] == t2[i]) {
+                printf("test\n");
                 index_intersection[index ++] = i;
             }
         }
