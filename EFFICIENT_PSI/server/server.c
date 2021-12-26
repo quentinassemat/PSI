@@ -46,14 +46,14 @@ element_t * server_receive_round2(int fd, int * v, element_t* X, pairing_t * pai
     sscanf((char*) buffer, "%d", v);
     // *v = atoi((char*) buffer);
 
-    printf("v is : %d\n", *v);
+    // printf("v is : %d\n", *v);
 
     // on reçoit X
     memset(buffer, 0, ELEMENT_BUF_SIZE);
     fd_read(fd, buffer, ELEMENT_BUF_SIZE);
     element_from_bytes(*X, buffer);
 
-    element_printf("X is : %B", *X);
+    // element_printf("X is : %B", *X);
 
     // on reçoit les y en faisant un malloc
     element_t * y = (element_t *) malloc(sizeof(element_t) * (*v));
@@ -121,9 +121,13 @@ int main(int argc, char* argv[]) {
         return -1;
     }
 
+    clock_t begin = clock();
+
     // Round 1 (client)
     printf("\n\nRound 1 (client) :\n");
 
+    clock_t end1 = clock();
+    printf("temps exec round 1 (ms) = %f\n", ((double)(end1 - begin) / CLOCKS_PER_SEC) * 1000);
     // Round 2
 
     printf("\n\nRound 2 :\n");
@@ -136,6 +140,8 @@ int main(int argc, char* argv[]) {
     element_t * y = server_receive_round2(fd, &v, &X, &server_test.pairing); // tableau de taille v
 
 
+    clock_t end2 = clock();
+    printf("temps exec round 2 (ms) = %f\n", ((double)(end2 - end1) / CLOCKS_PER_SEC) * 1000);
     // Round 3
 
     printf("\n\nRound 3 :\n");
@@ -168,7 +174,6 @@ int main(int argc, char* argv[]) {
             len = element_to_bytes(data, Ksj);
             sha3(data, len, data_hashed, 8);
             memcpy(&t[index], data_hashed, sizeof(unsigned long));
-            printf("index : %d\n", index);
             index += 1;
         }
     }
@@ -178,12 +183,17 @@ int main(int argc, char* argv[]) {
         element_pow_zn(y2[i], y[i], Rs);
     }
 
+    clock_t end3 = clock();
+    printf("temps exec round 3 (ms) = %f\n", ((double)(end3 - end2) / CLOCKS_PER_SEC) * 1000);
     // Round 4
 
     printf("\n\nRound 4 :\n");
 
 
     server_send_round4(fd, v, server_test.data.tab->nb_elts, &Z, y2, t);
+
+    clock_t end4 = clock();
+    printf("temps exec round 4 (ms) = %f\n", ((double)(end4 - end3) / CLOCKS_PER_SEC) * 1000);
 
     // Round 5 (client)
 

@@ -11,6 +11,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 
 #define generator_hash "0123456789"
 #define RANDOM_DATA 100

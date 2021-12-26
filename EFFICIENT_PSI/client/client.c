@@ -76,14 +76,14 @@ unsigned long * client_receive_round4(int fd, int v, int * w, element_t* Z, elem
     // *w = atoi((char*) buffer);
     sscanf((char*) buffer, "%d", w);
 
-    printf("w is : %d\n", *w);
+    // printf("w is : %d\n", *w);
 
     // on reçoit Z
     memset(buffer, 0, ELEMENT_BUF_SIZE);
     fd_read(fd, buffer, ELEMENT_BUF_SIZE);
     element_from_bytes(*Z, buffer);
 
-    element_printf("Z is : %B\n", *Z);
+    // element_printf("Z is : %B\n", *Z);
 
     // on reçoit les y2
     for (int i = 0; i< v; i++) {
@@ -120,6 +120,8 @@ int main(int argc, char* argv[]) {
     profil_print(stdout, &client_test.data);
 
     // Round 1
+
+    clock_t begin = clock();
 
     printf("\n\nRound 1 :\n");
 
@@ -166,6 +168,9 @@ int main(int argc, char* argv[]) {
         }
     }
 
+    clock_t end1 = clock();
+    printf("temps exec round 1 (ms) = %f\n", ((double)(end1 - begin) / CLOCKS_PER_SEC) * 1000);
+
     // Round 2
 
     printf("\n\nRound 2 :\n");
@@ -173,9 +178,16 @@ int main(int argc, char* argv[]) {
     client_send_round2(fd, client_test.data.tab->nb_elts, &X, y);
 
 
+    clock_t end2 = clock();
+    printf("temps exec round 2 (ms) = %f\n", ((double)(end2 - end1) / CLOCKS_PER_SEC) * 1000);
+
     // Round 3 (server)
 
     printf("\n\nRound 3 (server) :\n");
+
+
+    clock_t end3 = clock();
+    printf("temps exec round 3 (ms) = %f\n", ((double)(end3 - end2) / CLOCKS_PER_SEC) * 1000);
 
     // Round 4
 
@@ -194,6 +206,8 @@ int main(int argc, char* argv[]) {
     // }
 
 
+    clock_t end4 = clock();
+    printf("temps exec round 4 (ms) = %f\n", ((double)(end4 - end3) / CLOCKS_PER_SEC) * 1000);
     // Round 5
 
     printf("\n\nRound 5 :\n");
@@ -226,7 +240,6 @@ int main(int argc, char* argv[]) {
     for (int i = 0; i<client_test.data.tab->nb_elts; i++) {
         for (int j = 0; j < w; j++) {
             if (t[j] == t2[i]) {
-                printf("test\n");
                 index_intersection[index ++] = i;
             }
         }
@@ -245,6 +258,10 @@ int main(int argc, char* argv[]) {
             index2 += 1;
         }
     }
+
+
+    clock_t end5 = clock();
+    printf("temps exec round 5 (ms) = %f\n", ((double)(end5 - end4) / CLOCKS_PER_SEC) * 1000);
 
     close(fd);
 
