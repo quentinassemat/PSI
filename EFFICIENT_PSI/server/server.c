@@ -20,10 +20,10 @@ int server_init(server * server) {
     // initialisation de data :
     profil_random(&server->data, RANDOM_DATA);
 
-    hash_pair test = {4, 3};
-    profil_append(&server->data, &test);
-    hash_pair test2 = {6, 0};
-    profil_append(&server->data, &test2);
+    // hash_pair test = {4, 3};
+    // profil_append(&server->data, &test);
+    // hash_pair test2 = {6, 0};
+    // profil_append(&server->data, &test2);
 
     // initialisation de hashed :
     // profil_hashed(&server->data, &server->hashed);
@@ -40,7 +40,7 @@ int server_clear(server * server) {
 }
 
 element_t * server_receive_round2(int fd, int * v, element_t* X, pairing_t * pairing) {  // pas oublier de faire le malloc pour y
-    uchar * buffer = malloc(sizeof(uchar) * ELEMENT_BUF_SIZE);
+    uchar * buffer = malloc(sizeof(uchar) * ELEMENT_BUF_SIZE); // on clean le malloc dans le main
     // on reçoit d'abord la taille (remplit v)
     fd_read(fd, buffer, ELEMENT_BUF_SIZE);
     sscanf((char*) buffer, "%d", v);

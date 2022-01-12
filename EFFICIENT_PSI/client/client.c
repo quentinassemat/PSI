@@ -21,10 +21,10 @@ int client_init(client * client) {
     // initialisation de data :
     profil_random(&client->data, RANDOM_DATA);
 
-    hash_pair test = {4, 3};
-    profil_append(&client->data, &test);
-    hash_pair test2 = {6, 0};
-    profil_append(&client->data, &test2);
+    // hash_pair test = {4, 3};
+    // profil_append(&client->data, &test);
+    // hash_pair test2 = {6, 0};
+    // profil_append(&client->data, &test2);
 
     // initialisation de hashed :
     profil_hashed(&client->data);

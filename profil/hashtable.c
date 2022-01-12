@@ -1,9 +1,3 @@
-/*! \file hashtable.c
- * \brief Using a small hash table with open addressing
- * \author Francois Morain (morain@lix.polytechnique.fr)
- * \date October 12, 2017                        
- **************************************************************/
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <limits.h>

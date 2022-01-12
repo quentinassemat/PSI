@@ -14,7 +14,7 @@
 #include <time.h>
 
 #define generator_hash "0123456789"
-#define RANDOM_DATA 100
+#define RANDOM_DATA 1
 
 typedef struct client
 {

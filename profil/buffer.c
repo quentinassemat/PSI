@@ -1,13 +1,3 @@
-/*! \file buffer.c
-  \author François Morain (morain@lix.polytechnique.fr)
-  \author Alain Couvreur (alain.couvreur@lix.polytechnique.fr)
-  \date September 29, 2018.
-  \details A buffer_t mimics an array of uchar of variable size.
-  A buffer is created with a maximal \a size; each time an operation is
-  performed, its size may be increased.
-******************************************************************/
-
-
 #include "buffer.h"
 
 /*! \def DEBUG

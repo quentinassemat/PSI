@@ -1,7 +1,3 @@
-/*! \file random.c
- *  \author Alain Couvreur
- */
-
 #include <stdio.h>
 #include <time.h>
 
