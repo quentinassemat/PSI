@@ -21,10 +21,10 @@ int client_init(client * client) {
     // initialisation de data :
     profil_random(&client->data, RANDOM_DATA);
 
-    // hash_pair test = {4, 3};
-    // profil_append(&client->data, &test);
-    // hash_pair test2 = {6, 0};
-    // profil_append(&client->data, &test2);
+    hash_pair test = {4, 3};
+    profil_append(&client->data, &test);
+    hash_pair test2 = {6, 0};
+    profil_append(&client->data, &test2);
 
     // initialisation de hashed :
     profil_hashed(&client->data);
@@ -106,11 +106,6 @@ unsigned long * client_receive_round4(int fd, int v, int * w, element_t* Z, elem
 }
 
 int main(int argc, char* argv[]) {
-    // mise en place connection tcp :
-    int fd = socket_connect(PORT_SERVER);
-    if (fd < 0) {
-        return fd;
-    }
 
     // initialisation des données du client
     client client_test;
@@ -118,6 +113,12 @@ int main(int argc, char* argv[]) {
     element_printf("generator : %B\n", client_test.g);
     printf("\nData :\n");
     profil_print(stdout, &client_test.data);
+
+    // mise en place connection tcp :
+    int fd = socket_connect(PORT_SERVER);
+    if (fd < 0) {
+        return fd;
+    }
 
     // Round 1
 
@@ -223,18 +224,17 @@ int main(int argc, char* argv[]) {
     unsigned char data_hashed[8];
     int len;
 
-    for (int i = 0; i<client_test.data.tab->size; i++) {
-        if (hash_is_defined(client_test.data.tab, i)) {
-            element_sub(exp, Rc, Rci[index]);
-            element_pow_zn(Kci, Z, exp);
-            element_mul(Kci, Kci, y2[index]);
-            len = element_to_bytes(data, Kci);
-            sha3(data, len, data_hashed, 8);
-            memcpy(&t2[index], data_hashed, sizeof(unsigned long));
-            // printf("t2[%d] : %lu\n", index, t2[index]);
-            index += 1;
-        }
+    for (int i = 0; i<client_test.data.tab->nb_elts; i++) {
+        element_sub(exp, Rc, Rci[i]);
+        element_pow_zn(Kci, Z, exp);
+        element_mul(Kci, Kci, y2[i]);
+        len = element_to_bytes(data, Kci);
+        sha3(data, len, data_hashed, 8);
+        memcpy(&t2[i], data_hashed, sizeof(unsigned long));
+        // printf("t2[%d] : %lu\n", index, t2[index]);
     }
+
+
     int* index_intersection = (int *) malloc(sizeof(int) * client_test.data.tab->nb_elts);
     index = 0;
     for (int i = 0; i<client_test.data.tab->nb_elts; i++) {

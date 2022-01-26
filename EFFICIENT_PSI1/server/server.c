@@ -20,10 +20,10 @@ int server_init(server * server) {
     // initialisation de data :
     profil_random(&server->data, RANDOM_DATA);
 
-    // hash_pair test = {4, 3};
-    // profil_append(&server->data, &test);
-    // hash_pair test2 = {6, 0};
-    // profil_append(&server->data, &test2);
+    hash_pair test = {4, 3};
+    profil_append(&server->data, &test);
+    hash_pair test2 = {6, 0};
+    profil_append(&server->data, &test2);
 
     // initialisation de hashed :
     // profil_hashed(&server->data, &server->hashed);
@@ -136,10 +136,7 @@ int main(int argc, char* argv[]) {
     element_init_G1(X, server_test.pairing);
 
     int v;
-
     element_t * y = server_receive_round2(fd, &v, &X, &server_test.pairing); // tableau de taille v
-
-
     clock_t end2 = clock();
     printf("temps exec round 2 (ms) = %f\n", ((double)(end2 - end1) / CLOCKS_PER_SEC) * 1000);
     // Round 3

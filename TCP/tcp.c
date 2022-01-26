@@ -61,7 +61,7 @@ int socket_connect(int port_number) {
     dest.sin_family = AF_INET;
     dest.sin_addr.s_addr = htonl(INADDR_ANY);
     dest.sin_port = htons(port_number);
-    puts("connect...");
+    printf("connect...");
     if (connect(mysocket, (struct sockaddr *)&dest, sizeof(struct sockaddr))) {
         fprintf(stderr, "Could not connect: %s\n", strerror(errno));
         return 4;
