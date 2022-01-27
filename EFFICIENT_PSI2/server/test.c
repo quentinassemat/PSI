@@ -72,29 +72,3 @@ int test_hash() {
     profil_clear(&pro);
     return 0;
 }
-
-int test_server() {
-    int fd = socket_connect_server(PORT_SERVER);
-
-    server server_test;
-    server_init(&server_test);
-    element_printf("generator : %B\n", server_test.g);
-    printf("\nData :\n");
-    profil_print(stdout, &server_test.data);
-
-    uchar * buffer = malloc(sizeof(uchar) * ELEMENT_BUF_SIZE);
-    fd_read(fd, buffer, ELEMENT_BUF_SIZE);
-    element_t test, random;
-    element_init_G1(test, server_test.pairing);
-    element_init_G1(random, server_test.pairing);
-    element_random(random);
-    element_from_bytes(test, buffer);
-    element_printf("test: %B\n", test);
-    free(buffer);
-
-    printf("Comparaison de test avec generator : %d\n", element_cmp(test, server_test.g));
-    printf("Comparaison de d'un random avec gen : %d\n", element_cmp(test, random));
-    
-    close(fd);
-    return 0;
-}

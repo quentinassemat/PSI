@@ -31,4 +31,4 @@ $(LINK_TARGET) : $(OBJS)
 	cc -g  -Wall -o $@ -c $<
 
 
-client.o : client.h client.c test.o test.c test.h
+client.o : client.h client.c

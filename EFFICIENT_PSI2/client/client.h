@@ -1,7 +1,6 @@
 #ifndef CLIENT_H
 #define CLIENT_H
 
-#include "test.h"
 #include "../../TCP/tcp.h"
 #include "../../profil/profil.h"
 #include "../../profil/buffer.h"

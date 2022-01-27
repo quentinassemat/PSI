@@ -90,17 +90,18 @@ int main(int argc, char* argv[]) {
     printf("Precomputation :\n");
     mpz_t * y = (mpz_t *) malloc(sizeof(mpz_t) * client_test.data.tab->nb_elts);
     mpz_t * Rci = (mpz_t *) malloc(sizeof(mpz_t) * client_test.data.tab->nb_elts);
-    mpz_t hci;
+    mpz_t hci, bound;
     gmp_randstate_t state;
     gmp_randinit_default(state);
-    mpz_init(hci);
+    mpz_inits(hci, bound, NULL);
     int index = 0;
+    mpz_sub_ui(bound, client_test.N, 1);
 
     for (int i = 0; i<client_test.data.tab->size; i++) {
         if (hash_is_defined(client_test.data.tab, i)) {
             mpz_inits(y[index], Rci[index], NULL);
-            mpz_urandomm(Rci[index], state, client_test.N - 1);
-            mpz_add_ui(Rci[index], Rci[index], 1);
+            mpz_urandomm(Rci[index], state, bound);
+            mpz_add_ui(Rci[index], Rci[index], 1); // Rci random dans [1, N-1];
             mpz_set_ui(hci, (unsigned long int) client_test.data.tab->table[i].v);
             mpz_powm(y[index], Rci[index], client_test.e, client_test.N);
             mpz_mul(y[index], y[index], hci);
@@ -108,7 +109,7 @@ int main(int argc, char* argv[]) {
             index += 1;
         }
     }
-    mpz_clear(hci);
+    mpz_clears(hci, bound, NULL);
 
     clock_t end0 = clock();
     printf("temps exec precomputation (ms) = %f\n", ((double)(end0 - begin) / CLOCKS_PER_SEC) * 100);

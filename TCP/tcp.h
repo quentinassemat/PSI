@@ -20,7 +20,7 @@
 #define BUF_SIZE 1500
 
 #define ELEMENT_BUF_SIZE 128
-#define MPZ_BUF_SIZE 128
+#define MPZ_BUF_SIZE 256
 
 
 /**

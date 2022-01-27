@@ -11,6 +11,5 @@ int test_tcp();
 int test_profil();
 int test_pbc();
 int test_hash();
-int test_client();
 
 #endif // TEST_H

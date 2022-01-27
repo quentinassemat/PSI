@@ -73,25 +73,3 @@ int test_hash() {
     profil_clear(&pro);
     return 0;
 }
-
-int test_client() {
-    int fd = socket_connect(PORT_SERVER);
-    if (fd < 0) {
-        // return fd;
-    }
-    client client_test;
-    client_init(&client_test);
-    element_printf("generator : %B\n", client_test.g);
-    printf("\nData :\n");
-    profil_print(stdout, &client_test.data);
-
-    uchar * buffer = malloc(sizeof(uchar) * ELEMENT_BUF_SIZE);
-
-    int gen_size = element_to_bytes(buffer, client_test.g);
-    printf("gen_size : %d\n", gen_size);
-    fd_write(buffer, fd, gen_size);
-    free(buffer);
-
-    close(fd);
-    return 0;
-}
