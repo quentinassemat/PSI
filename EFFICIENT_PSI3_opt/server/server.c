@@ -20,14 +20,14 @@ int server_init(server * server) {
     // initialisation de data :
     profil_random(&server->data, RANDOM_DATA);
 
-    hash_pair test = {4, 3};
+    hash_pair test = {4, NULL};
     profil_append(&server->data, &test);
-    hash_pair test2 = {6, 0};
+    hash_pair test2 = {6, NULL};
     profil_append(&server->data, &test2);
 
     // initialisation de hashed :
     // profil_hashed(&server->data, &server->hashed);
-    profil_hashed(&server->data);
+    profil_hashed(&server->data, server->pairing);
 
     return  0;
 }
@@ -99,7 +99,7 @@ int main(int argc, char* argv[]) {
     server_init(&server_test);
     // element_printf("generator : %B\n", server_test.g);
     printf("Data :\n");
-    profil_print(stdout, &server_test.data);
+    profil_print(stdout, &server_test.data, server_test.pairing);
 
     // génération de clef privée et clef publique. 
     // element_t priv_k, inv, pub_k;
@@ -197,7 +197,8 @@ int main(int argc, char* argv[]) {
     int index = 0;
     for (int j = 0; j<server_test.data.tab->size; j++) {
         if (hash_is_defined(server_test.data.tab, j)) {
-            element_from_hash(hsj , &server_test.data.tab->table[j].v, ELEMENT_BUF_SIZE); //
+            element_from_bytes(hsj, server_test.data.tab->table[j].v);
+            // element_from_hash(hsj , &server_test.data.tab->table[j].v, ELEMENT_BUF_SIZE); 
             element_pow_zn(hsj, hsj, priv_k);
             element_to_bytes(data, hsj);
             for (int i = 0 ; i<NONCE_SIZE; i++) {
