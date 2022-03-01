@@ -1,0 +1,164 @@
+Server : 5000
+Client : 1
+
+Server : 
+Round 1 (client) :
+temps exec round 1 (ms) = 0.019000
+
+
+Round 2 :
+temps exec round 2 (ms) = 0.134000
+
+
+Round 3 :
+temps exec round 3 (ms) = 17196.722000
+
+
+Round 4 :
+temps exec round 4 (ms) = 4.698000
+
+
+Round 5 (client) :
+
+Client : 
+Round 1 :
+temps exec round 1 (ms) = 22.657000
+
+
+Round 2 :
+temps exec round 2 (ms) = 0.087000
+
+
+Round 3 (server) :
+temps exec round 3 (ms) = 0.012000
+
+
+Round 4 :
+temps exec round 4 (ms) = 4.878000
+
+
+Round 5 : 
+temps exec round 5 (ms) = 7.676000
+
+
+Server : 3000
+Client : 1
+
+Server : 
+Round 1 (client) :
+temps exec round 1 (ms) = 0.023000
+
+
+Round 2 :
+temps exec round 2 (ms) = 0.146000
+
+
+Round 3 :
+temps exec round 3 (ms) = 10271.709000
+
+
+Round 4 :
+temps exec round 4 (ms) = 2.783000
+
+
+Client : 
+Round 1 :
+temps exec round 1 (ms) = 16.287000
+
+
+Round 2 :
+temps exec round 2 (ms) = 0.100000
+
+
+Round 3 (server) :
+temps exec round 3 (ms) = 0.014000
+
+
+Round 4 :
+temps exec round 4 (ms) = 3.074000
+
+
+Round 5 :
+temps exec round 5 (ms) = 7.614000
+
+
+Server : 1000
+Client : 1
+
+Server :
+Round 1 (client) :
+temps exec round 1 (ms) = 0.018000
+
+
+Round 2 :
+temps exec round 2 (ms) = 0.116000
+
+
+Round 3 :
+temps exec round 3 (ms) = 3406.617000
+
+
+Round 4 :
+temps exec round 4 (ms) = 1.035000
+
+Client :
+Round 1 :
+temps exec round 1 (ms) = 16.660000
+
+
+Round 2 :
+temps exec round 2 (ms) = 0.100000
+
+
+Round 3 (server) :
+temps exec round 3 (ms) = 0.013000
+
+
+Round 4 :
+temps exec round 4 (ms) = 1.102000
+
+
+Round 5 :
+temps exec round 5 (ms) = 7.164000
+
+
+
+Server : 200
+Client : 1
+
+Server :
+Round 1 (client) :
+temps exec round 1 (ms) = 0.008000
+
+
+Round 2 :
+temps exec round 2 (ms) = 0.073000
+
+
+Round 3 :
+temps exec round 3 (ms) = 707.322000
+
+
+Round 4 :
+temps exec round 4 (ms) = 0.275000
+
+
+Client :
+Round 1 :
+temps exec round 1 (ms) = 18.699000
+
+
+Round 2 :
+temps exec round 2 (ms) = 0.087000
+
+
+Round 3 (server) :
+temps exec round 3 (ms) = 0.014000
+
+
+Round 4 :
+temps exec round 4 (ms) = 0.379000
+
+
+Round 5 :
+temps exec round 5 (ms) = 6.851000
